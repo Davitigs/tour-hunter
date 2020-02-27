@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Marker } from './classes/marker';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tour-hunter';
+
+  marker: Marker;
+  constructor() {
+  }
+
+  getMarker(marker: Marker) {
+    this.marker = marker;
+  }
 }

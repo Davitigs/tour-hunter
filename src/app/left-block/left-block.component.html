@@ -1,0 +1,19 @@
+<div (click)="toggleTree()">Toggle Tree</div>
+<ul *ngIf="showTree">
+  <li *ngFor="let firstLevelListItem of firstLevelList">
+    {{firstLevelListItem}}
+  </li>
+  <ul>
+    <li *ngFor="let secondLevelListItem of secondLevelList">
+      {{secondLevelListItem}}
+    </li>
+    <ul>
+      <li
+        *ngFor="let thirdLevelListItem of thirdLevelList; let ind = index"
+        (click)="thirdLevelListItem?.latitude ? markPoint(thirdLevelListItem) : ''"
+      >
+        {{thirdLevelListItem | json}}
+      </li>
+    </ul>
+  </ul>
+</ul>
