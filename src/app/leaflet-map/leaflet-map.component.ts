@@ -13,11 +13,12 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
   private map;
 
   @Input()
-  set marker(marker: Marker) {
+  set marker(marker: Marker[]) {
     if (marker) {
-      L.marker([marker.latitude, marker.longitude]).addTo(this.map);
+        marker.forEach(m => L.marker([m.latitude, m.longitude]).addTo(this.map));
+      }
     }
-  }
+
   constructor() {
 
   }

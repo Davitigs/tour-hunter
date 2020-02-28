@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Marker } from '../classes/marker';
 
 @Component({
@@ -9,7 +9,9 @@ import { Marker } from '../classes/marker';
 export class LeftBlockComponent implements OnInit {
 
   showTree = false;
-  @Output() marker: EventEmitter<Marker> = new EventEmitter<Marker>();
+
+  @Output() marker: EventEmitter<Marker | Marker[]> = new EventEmitter<Marker | Marker[]>();
+  @Input() disabledMarkers: Marker[]
 
   firstLevelList = [
     'First', 'Second', 'Third'
@@ -21,16 +23,19 @@ export class LeftBlockComponent implements OnInit {
 
 
   thirdLevelList = [
-    'First', 'Second', 'Third',
+
     {
+      name: 'First',
       latitude: 42.023949,
       longitude: -93.647595,
     },
     {
+      name: 'Second',
       latitude: 28.0527364557,
       longitude: -82.4078333687,
     },
     {
+      name: 'Third',
       latitude: 38.89767,
       longitude: -77.03655,
     }
@@ -45,7 +50,7 @@ export class LeftBlockComponent implements OnInit {
     this.showTree = !this.showTree;
   }
 
-  markPoint(marker: Marker) {
+  markPoint(marker: Marker | Marker[]) {
     this.marker.emit(marker);
   }
 }
