@@ -14,17 +14,15 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
 
   @Input()
   set marker(marker: Marker) {
-    this.showMarker(marker);
+    if (marker) {
+      L.marker([marker.latitude, marker.longitude]).addTo(this.map);
+    }
   }
   constructor() {
 
   }
 
   ngOnInit() {
-  }
-
-  showMarker(marker: Marker) {
-    console.log(marker);
   }
 
   private initMap() {

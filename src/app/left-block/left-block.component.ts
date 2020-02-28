@@ -23,16 +23,16 @@ export class LeftBlockComponent implements OnInit {
   thirdLevelList = [
     'First', 'Second', 'Third',
     {
-      latitude: 51.5,
-      longitude: 0.09,
+      latitude: 42.023949,
+      longitude: -93.647595,
     },
     {
-      latitude: 41.5,
-      longitude: 0.09,
+      latitude: 28.0527364557,
+      longitude: -82.4078333687,
     },
     {
-      latitude: 31.5,
-      longitude: 0.09,
+      latitude: 38.89767,
+      longitude: -77.03655,
     }
   ];
 
