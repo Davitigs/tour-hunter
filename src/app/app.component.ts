@@ -20,10 +20,13 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.markers$ = this.markerState.markerState$;
     this.disabledMarkers$ = this.markerState.disabledMarkers$;
-    this.markers$.subscribe(console.log);
   }
 
   getMarker(marker: Marker | Marker[]) {
     this.markerState.setMarker(marker);
+  }
+
+  removedMarkers(marker: Marker) {
+    this.markerState.removeMarker(marker);
   }
 }
