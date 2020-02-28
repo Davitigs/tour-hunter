@@ -16,8 +16,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
   set marker(marker: Marker[]) {
     if (marker) {
         marker.forEach(m => L.marker([m.latitude, m.longitude]).addTo(this.map));
-      }
     }
+  }
 
   constructor() {
 
