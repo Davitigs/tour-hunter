@@ -1,0 +1,10 @@
+li {
+  cursor: pointer;
+  list-style: none;
+  transition: all .2s;
+
+  &:hover {
+    transform: translateX(20px) scale(1.2);
+    color: #1e791e;
+  }
+}
