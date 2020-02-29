@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LeftBlockComponent } from './left-block/left-block.component';
 import { RightBlockComponent } from './right-block/right-block.component';
 import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
+import {MarkerStateService} from './marker-state.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [MarkerStateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

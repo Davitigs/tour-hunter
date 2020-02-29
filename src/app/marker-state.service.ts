@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {Marker} from './classes/marker';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Marker } from './classes/marker';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MarkerStateService {
 
   markerState: BehaviorSubject<Marker[] | null> =  new BehaviorSubject<Marker[] | null>([]);
   markerState$: Observable<Marker[]> = this.markerState.asObservable();
-  disabledMarkers$: Observable<Marker[]> = this.markerState.asObservable();
   removedMarkers: BehaviorSubject<Marker[] | null> = new BehaviorSubject<Marker[] | null>([]);
   removedMarkers$: Observable<Marker[]> = this.removedMarkers.asObservable();
+
 
   constructor() { }
 
@@ -37,14 +35,19 @@ export class MarkerStateService {
   }
 
   removeMarker(marker: Marker) {
-    const remainedMarkers = this.MarkerState.filter((mark) => {
-      return mark.latitude !== marker.latitude && mark.longitude !== marker.longitude;
-    });
-    this.markerState.next([...remainedMarkers]);
-
     if ( !this.RemovedMarkers.includes(marker) ) {
-      this.removedMarkers.next([...this.RemovedMarkers, marker]);
+      const removedMarkers = this.MarkerState.filter((mark) => {
+        return mark.latitude === marker.latitude && mark.longitude === marker.longitude;
+      });
+      this.removedMarkers.next([...this.RemovedMarkers, ...removedMarkers]);
     }
+  }
+
+  restoreMarker(marker: Marker) {
+    const remainedMarkers = this.MarkerState.filter((mark) => mark !== marker );
+    this.markerState.next([...remainedMarkers]);
+    const restoredMarkers = this.RemovedMarkers.filter(mark => mark !== marker);
+    this.removedMarkers.next([...restoredMarkers]);
   }
 
 }

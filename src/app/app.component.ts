@@ -1,32 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { Marker } from './classes/marker';
-import {MarkerStateService} from './marker-state.service';
-import {Observable} from 'rxjs';
+import { MarkerStateService } from './marker-state.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   markers$: Observable<Marker[]>;
-  disabledMarkers$: Observable<Marker[]>;
+  removedMarkers$: Observable<Marker[]>;
+  marker: Marker | Marker[];
 
   constructor(
     private markerState: MarkerStateService
   ) {}
 
+
   ngOnInit() {
     this.markers$ = this.markerState.markerState$;
-    this.disabledMarkers$ = this.markerState.disabledMarkers$;
+    this.removedMarkers$ = this.markerState.removedMarkers$;
   }
 
-  getMarker(marker: Marker | Marker[]) {
+  setMarker(marker: Marker) {
     this.markerState.setMarker(marker);
+    this.marker = marker;
   }
 
   removedMarkers(marker: Marker) {
     this.markerState.removeMarker(marker);
+  }
+
+  restoreMarker(marker: Marker) {
+    this.markerState.restoreMarker(marker);
   }
 }

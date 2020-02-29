@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Marker} from '../classes/marker';
+import {AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Marker } from '../classes/marker';
 import * as L from 'leaflet';
 
 
@@ -7,28 +7,38 @@ import * as L from 'leaflet';
 @Component({
   selector: 'app-leaflet-map',
   templateUrl: './leaflet-map.component.html',
-  styleUrls: ['./leaflet-map.component.scss']
+  styleUrls: ['./leaflet-map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeafletMapComponent implements OnInit, AfterViewInit {
   private map;
   @Output() removeMarkEmit: EventEmitter<Marker> = new EventEmitter<Marker>();
 
   @Input()
-  set marker(marker: Marker[]) {
+  set marker(marker: Marker) {
     if (marker) {
+
+      if (Array.isArray(marker)) {
         marker.forEach(m => {
           const mark = L.marker([m.latitude, m.longitude]).addTo(this.map);
-          mark.on('mouseover', (markItem) => this.removeMarker(markItem.latlng));
+          mark.on('mouseover', (markItem) => {
+            this.removeMarker(markItem.latlng);
+            this.map.removeLayer(mark);
+          });
         });
+      } else {
+        const mark = L.marker([marker.latitude, marker.longitude]).addTo(this.map);
+        mark.on('mouseover', (markItem) => {
+          this.removeMarker(markItem.latlng);
+          this.map.removeLayer(mark);
+        });
+      }
     }
   }
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   private initMap() {
     this.map = L.map('map', {

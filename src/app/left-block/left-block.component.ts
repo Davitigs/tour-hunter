@@ -1,17 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Marker } from '../classes/marker';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Marker} from '../classes/marker';
 
 @Component({
   selector: 'app-left-block',
   templateUrl: './left-block.component.html',
-  styleUrls: ['./left-block.component.scss']
+  styleUrls: ['./left-block.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeftBlockComponent implements OnInit {
 
   showTree = false;
 
   @Output() marker: EventEmitter<Marker | Marker[]> = new EventEmitter<Marker | Marker[]>();
-  @Input() disabledMarkers: Marker[]
+  @Input() disabledMarkers: Marker[];
 
   firstLevelList = [
     'First', 'Second', 'Third'
@@ -51,6 +52,15 @@ export class LeftBlockComponent implements OnInit {
   }
 
   markPoint(marker: Marker | Marker[]) {
-    this.marker.emit(marker);
+    if (Array.isArray(marker)) {
+      const filteredMarkers = marker.filter(mark => {
+        return !this.disabledMarkers.includes(mark);
+      });
+      this.marker.emit(filteredMarkers);
+    } else {
+      if ( !this.disabledMarkers.includes(marker) ) {
+        this.marker.emit(marker);
+      }
+    }
   }
 }

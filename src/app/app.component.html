@@ -1,5 +1,17 @@
 <div class="container">
-  <app-left-block (marker)="getMarker($event)" [disabledMarkers]="disabledMarkers$ | async"></app-left-block>
-  <app-leaflet-map [marker] = "markers$ | async" (removeMarkEmit)="removedMarkers($event)"></app-leaflet-map>
-  <app-right-block></app-right-block>
+  <app-left-block
+    (marker)="setMarker($event)"
+    [disabledMarkers]="markers$ | async"
+  >
+  </app-left-block>
+  <app-leaflet-map
+    [marker] = "marker"
+    (removeMarkEmit)="removedMarkers($event)"
+  >
+  </app-leaflet-map>
+  <app-right-block
+    [removedMarkers] = "removedMarkers$ | async"
+    (restoredMarker) = "restoreMarker($event)"
+  >
+  </app-right-block>
 </div>

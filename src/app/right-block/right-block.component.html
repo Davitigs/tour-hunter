@@ -1,1 +1,5 @@
-<p>right-block works!</p>
+<ul>
+  <li *ngFor="let removedMarker of removedMarkers" (click)="restoreMarker(removedMarker)">
+    {{removedMarker.name}}
+  </li>
+</ul>
