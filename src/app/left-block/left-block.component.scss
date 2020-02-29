@@ -1,17 +1,14 @@
 .toggle {
   padding: 10px 20px;
   color: #fff;
-  //background: linear-gradient(360deg, #5cb85c, #6dc73f, #5cb85c);
   background-color: #4ca021;
   box-shadow: 0 7px 5px rgba(black, .3);
-  //border-color: #4cae4c
   border-radius: 4px;
   display: inline-block;
   cursor: pointer;
   transition: all .2s;
 
   &:hover {
-    //background: linear-gradient(360deg, #1e791e, #4ca021,  #1e791e);
     background-color: #1e791e;
   }
 
